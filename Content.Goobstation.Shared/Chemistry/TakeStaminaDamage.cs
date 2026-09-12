@@ -1,11 +1,3 @@
-// SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 Aiden <aiden@djkraz.com>
-// SPDX-FileCopyrightText: 2025 Aviu00 <93730715+Aviu00@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 Misandry <mary@thughunt.ing>
-// SPDX-FileCopyrightText: 2025 SX-7 <92227810+SX-7@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 coderabbitai[bot] <136622811+coderabbitai[bot]@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 gus <august.eymann@gmail.com>
-//
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.Damage.Components;
@@ -22,7 +14,7 @@ public sealed partial class TakeStaminaDamageSystem : EntityEffectSystem<Stamina
 
     protected override void Effect(Entity<StaminaComponent> entity, ref EntityEffectEvent<TakeStaminaDamage> args)
     {
-        _stamina.TakeStaminaDamage(entity.Owner, args.Effect.Amount, visual: false, immediate: args.Effect.Immediate);
+        _stamina.TakeStaminaDamage(entity.Owner, args.Effect.Amount, visual: false, immediate: args.Effect.Immediate, ignoreResist: true); // ignores armor resistances
     }
 }
 

@@ -1,9 +1,3 @@
-// SPDX-FileCopyrightText: 2024 Pieter-Jan Briers <pieterjan.briers+git@gmail.com>
-// SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 BeBright <98597725+be1bright@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
-// SPDX-FileCopyrightText: 2025 SX-7 <sn1.test.preria.2002@gmail.com>
-//
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.Actions;
@@ -118,7 +112,13 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
         if (!Prototypes.Resolve(entity.Comp.SelectedBorgType, out var proto) || // GOOB
             !TryComp(entity, out BorgSwitchableSubtypeComponent? subtype) ||
             !Prototypes.Resolve(subtype.BorgSubtype, out var subtypeProto))
+        {
+            // <Goob>
+            if (proto is not null)
+                UpdateEntityAppearance(entity, proto);
+            // </Goob>
             return;
+        }
 
         UpdateEntityAppearance(entity, proto, subtypeProto);
     }
@@ -126,7 +126,7 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
     protected virtual void UpdateEntityAppearance(
         Entity<BorgSwitchableTypeComponent> entity,
         BorgTypePrototype prototype,
-        BorgSubtypePrototype subtypePrototype) // GOOB
+        BorgSubtypePrototype? subtypePrototype = null) // GOOB
     {
         if (TryComp(entity, out InteractionPopupComponent? popup))
         {
